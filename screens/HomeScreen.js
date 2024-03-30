@@ -1,12 +1,15 @@
+// LoginScreen.js, HomeScreen.js, RecipeScreen.js
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import BackgroundImage from '../components/Background'; // Import the BackgroundImage component
 
 const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-      {/* Add your home screen content here */}
-    </View>
+    <BackgroundImage backgroundImage={require('../assets/fridge.jpg')}>
+      <View style={styles.container}>
+        <Text>Home Screen</Text>
+      </View>
+    </BackgroundImage>
   );
 };
 
@@ -19,4 +22,3 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
-

@@ -40,6 +40,7 @@ export default function TabNavigator() {
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="home" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -49,6 +50,7 @@ export default function TabNavigator() {
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="book" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

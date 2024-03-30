@@ -1,12 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import BackgroundImage from '../components/Background'; // Import the BackgroundImage component
+
 
 const RecipeScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text>Recipe Screen</Text>
-      {/* Add your recipe screen content here */}
-    </View>
+    <BackgroundImage backgroundImage={require('../assets/kitchen.jpg')}>
+      <View style={styles.container}>
+        <Text>Recipe Screen</Text>
+      </View>
+    </BackgroundImage>
   );
 };
 

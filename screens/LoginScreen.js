@@ -1,12 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import BackgroundImage from '../components/Background'; // Import the BackgroundImage component
+
 
 const LoginScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text>Login Screen</Text>
-      {/* Add your login screen content here */}
-    </View>
+    <BackgroundImage backgroundImage={require('../assets/splash.png')}>
+      <View style={styles.container}>
+        <Text>Login Screen</Text>
+      </View>
+    </BackgroundImage>
   );
 };
 
