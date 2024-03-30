@@ -2,7 +2,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign } from '@expo/vector-icons';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import RecipeScreen from './screens/RecipeScreen';
@@ -13,7 +14,7 @@ export default function TabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: 'rgb(56, 201, 172)',
+        tabBarActiveTintColor: '#30804a',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: [
           {
@@ -28,27 +29,27 @@ export default function TabNavigator() {
         component={LoginScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="user" color={color} size={size} />
+            <FontAwesome5 name="user-alt" color={color} size={size} />
           ),
           headerShown: false,
         }}
       />
       <Tab.Screen
-        name="Home"
+        name="Fridge"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="home" color={color} size={size} />
+            <MaterialCommunityIcons name="fridge" color={color} size={size} />
           ),
           headerShown: false,
         }}
       />
       <Tab.Screen
-        name="Recipe"
+        name="Kitchen"
         component={RecipeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="book" color={color} size={size} />
+            <MaterialCommunityIcons name="chef-hat" color={color} size={size} />
           ),
           headerShown: false,
         }}
