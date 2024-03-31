@@ -4,18 +4,18 @@ import BackgroundImage from '../components/Background'; // Import the Background
 
 const LoginScreen = () => {
   return (
-    <BackgroundImage backgroundImage={require('../assets/splash.png')}>
+    <BackgroundImage backgroundImage={require('../assets/remy_login.png')}>
       <View style={styles.container}>
         <Text style={styles.title}>WELCOME</Text>
         <TextInput
           style={styles.input}
           placeholder="Username"
-          placeholderTextColor="#176935"
+          placeholderTextColor="#A18167"
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
-          placeholderTextColor="#176935"
+          placeholderTextColor="#A18167"
           secureTextEntry={true}
         />
         <TouchableOpacity style={styles.loginButton} activeOpacity={0.7}>
@@ -51,13 +51,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 20,
     marginBottom: 20,
-    color: 'green',
+    color: '#D1B7A1',
     fontSize: 18,
   },
   loginButton: {
     width: '80%',
     height: 55,
-    backgroundColor: 'green',
+    backgroundColor: '#D1B7A1',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   signUpText: {
-    color: 'green',
+    color: '#D1B7A1',
     fontSize: 20,
     fontWeight: 'bold',
   },

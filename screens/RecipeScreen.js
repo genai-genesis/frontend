@@ -65,8 +65,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.4)', // Semi-transparent green background
   },
   recipeText: {
-    paddingTop: 20,
     padding: 20,
+    paddingTop: 30,
+    paddingBottom: 60,
     color: 'white',
     fontSize: 18,
     lineHeight: 22,
