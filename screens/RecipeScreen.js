@@ -152,7 +152,7 @@ const RecipeScreen = () => {
         </TouchableOpacity>
         {isLoading && (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#D1B7A1" />
+            <ActivityIndicator size="large" color="white" />
           </View>
         )}
         <View style={styles.container}>
@@ -218,7 +218,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   loadingContainer: {
-    ...StyleSheet.absoluteFillObject, // Positions the container absolutely to cover the entire screen
+    position: 'absolute',
+    top: 360,
+    left: '47%',
+    height: 60,
+    width: 60,
+    borderRadius: 25,
     justifyContent: 'center', // Centers content vertically
     alignItems: 'center', // Centers content horizontally
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background color
