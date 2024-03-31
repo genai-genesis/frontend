@@ -1,8 +1,73 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import axios from 'axios';
 import BackgroundImage from '../components/Background'; // Import the BackgroundImage component
+import { useAuth } from '../hooks/AuthContext';
+import HomeScreen from './HomeScreen';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const { signIn } = useAuth();
+
+  const handleLogin = () => {
+    // whatever we need to do on the backend funky bs
+    // for now i will just make this redirect to dashboard on enter
+
+    const loginUser = async (username, password) => {
+      try {
+        const response = await axios.post(
+          'https://backend-production-ba90.up.railway.app/users/signup',
+          {
+            username: username,
+            password: password,
+          }
+        );
+
+        if (response.status === 200) {
+          signIn(response.data.user);
+          navigation.navigate('Fridge');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loginUser(username, password);
+
+    // navigation.navigate('Dashboard');
+  };
+
+  const handleRegister = () => {
+    // whatever we need to do on the backend funky bs
+    // for now i will just make this redirect to dashboard on enter
+
+    const RegisterUser = async (username, password) => {
+      try {
+        const response = await axios.post(
+          'https://backend-production-ba90.up.railway.app/users/signup',
+          {
+            username: username,
+            password: password,
+          }
+        );
+
+        if (response.status === 200) {
+          signIn(response.data.user);
+          navigation.navigate('Fridge');
+        }
+
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    RegisterUser(username, password);
+  };
+
+
   return (
     <BackgroundImage backgroundImage={require('../assets/remy_login.png')}>
       <View style={styles.container}>
@@ -11,17 +76,23 @@ const LoginScreen = () => {
           style={styles.input}
           placeholder="Username"
           placeholderTextColor="#A18167"
+          onChangeText={setUsername}
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
           placeholderTextColor="#A18167"
           secureTextEntry={true}
+          onChangeText={setPassword}
         />
-        <TouchableOpacity style={styles.loginButton} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.loginButton} activeOpacity={0.7}
+          onPress={handleLogin}
+        >
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.signUpButton} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.signUpButton} activeOpacity={0.7}
+          onPress={handleRegister}
+        >
           <Text style={styles.signUpText}>SIGN UP</Text>
         </TouchableOpacity>
       </View>
