@@ -3,6 +3,12 @@ import { View, Text, ScrollView, StyleSheet, ImageBackground } from 'react-nativ
 import BackgroundImage from '../components/Background'; // Import the BackgroundImage component
 import Udon from '../assets/kale_feta_udon.png';
 
+const foodNames = [
+  'zucchini', 'banana', 'potato', 'broccoli', 'brussel sprout', 'grape', 'peas', 'tomato', 'lettuce',
+  'bread', 'ham', 'turkey', 'activia', 'eggs', 'beef', 'apples', 'bananas', 'cucumbers', 'garlic',
+  'tomatoes', 'onions', 'peppers', 'tilapia'
+];
+
 const generatedRecipeText = `1. Spicy Udon Noodle Soup with Kale and Feta
 This recipe is a light and flavorful soup perfect for a cold day. The jalapenos add a kick, balanced by the creamy feta and citrusy lemon. Xanthan gum thickens the broth slightly for a more satisfying meal.
 

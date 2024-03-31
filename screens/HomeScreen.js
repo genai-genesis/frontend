@@ -15,8 +15,6 @@ const HomeScreen = () => {
   const [lightboxVisible, setLightboxVisible] = useState(false); // State for lightbox visibility
   const [selectedFood, setSelectedFood] = useState('tomato');
 
-
-
   // Function to handle swiping to the next page
   const handleSwipeRight = () => {
     scrollViewRef.current?.scrollTo({ x: screenWidth, animated: true });
@@ -29,8 +27,10 @@ const HomeScreen = () => {
 
   // Function to handle pressing a grid item
   const handlePressGridItem = (foodName) => {
-    setSelectedFood(foodName);
-    setLightboxVisible(true);
+    if(foodName) {
+      setSelectedFood(foodName);
+      setLightboxVisible(true);
+    }
   };
 
   // Function to handle closing the lightbox
@@ -110,10 +110,30 @@ const HomeScreen = () => {
 
   // Array of food names
   const foodNames = [
-    'zucchini', 'banana', 'potato', 'broccoli', 'brussel sprout', 'grape', 'peas', 'tomato',
-    'lettuce', 'bread', 'ham', 'turkey', 'activia', 'eggs', 'beef', 'apples', 'bananas',
-    'cucumbers', 'garlic', 'tomatoes', 'onions', 'peppers', 'tilapia'
-  ];
+    {"name": "zucchini", "expiry": 5},
+    {"name": "banana", "expiry": 8},
+    {"name": "potato", "expiry": 10},
+    {"name": "broccoli", "expiry": 8},
+    {"name": "brussel sprout", "expiry": 7},
+    {"name": "grape", "expiry": 7},
+    {"name": "peas", "expiry": 3},
+    {"name": "tomato", "expiry": 5},
+    {"name": "lettuce", "expiry": 2},
+    {"name": "bread", "expiry": 10},
+    {"name": "ham", "expiry": 7},
+    {"name": "turkey", "expiry": 5},
+    {"name": "activia", "expiry": 14},
+    {"name": "eggs", "expiry": 21},
+    {"name": "beef", "expiry": 5},
+    {"name": "apples", "expiry": 8},
+    {"name": "bananas", "expiry": 5},
+    {"name": "cucumbers", "expiry": 3},
+    {"name": "garlic", "expiry": 60},
+    {"name": "tomatoes", "expiry": 5},
+    {"name": "onions", "expiry": 30},
+    {"name": "peppers", "expiry": 7},
+    {"name": "tilapia", "expiry": 2}
+]
 
 
   return (
@@ -134,13 +154,18 @@ const HomeScreen = () => {
               <View style={styles.innerGrid}>
                 {[...Array(4).keys()].map((colIndex) => {
                   const index = rowIndex * 4 + colIndex;
-                  const foodName = foodNames[index];
+                  const foodName = foodNames[index].name;
                   return (
-                    <TouchableWithoutFeedback key={index} onPress={() => handlePressGridItem(foodName)}>
-                      <View style={styles.gridItem}>
-                        <Image source={getFoodFileName(foodName)} style={styles.foodImage} />
-                      </View>
-                    </TouchableWithoutFeedback>
+                    
+                      <TouchableWithoutFeedback key={index} onPress={() => handlePressGridItem(foodName)}>
+                        <View style={styles.gridItem}>
+                        {index < foodNames.length ? (
+                          <Image source={getFoodFileName(foodName)} style={styles.foodImage} />
+                          ) : (
+                          <View style={styles.transparentSquare}></View> // Render transparent square
+                        )}                      
+                        </View>
+                      </TouchableWithoutFeedback>
                   );
                 })}
               </View>
@@ -155,7 +180,7 @@ const HomeScreen = () => {
         {[...Array(4).keys()].map((colIndex) => {
           const index = rowIndex * 4 + colIndex + 16;
           if (index < foodNames.length) {
-            const foodName = foodNames[index];
+            const foodName = foodNames[index].name;
             return (
               <TouchableWithoutFeedback key={index} onPress={() => handlePressGridItem(foodName)}>
                 <View style={styles.gridItem}>
@@ -195,8 +220,10 @@ const HomeScreen = () => {
       <Modal visible={lightboxVisible} transparent>
         <View style={styles.lightboxContainer}>
           <View style={styles.lightboxContent}>
-            <Text style={styles.lightboxName}>Cookie</Text>
-            <Text style={styles.lightboxExpiry}>Expiry Estimate: 5 days</Text>
+            <Text style={styles.lightboxName}>{selectedFood}</Text>
+            <Text style={styles.lightboxExpiry}>
+              Expiry Estimate: {foodNames.find(food => food.name === selectedFood)?.expiry || 'Unknown'} days
+            </Text>
             <Image source={getFoodFileName(selectedFood)} style={styles.lightboxImage} />
             <TouchableWithoutFeedback onPress={handleCloseLightbox}>
               <View style={styles.closeButtonContainer}>
@@ -234,7 +261,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   gridItem: {
-    backgroundColor: '#D1B7A1',
     marginHorizontal: 13,
     height: 60,
     width: 60,
@@ -295,6 +321,11 @@ const styles = StyleSheet.create({
     color: '#D1B7A1',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  transparentSquare: {
+    width: 60,
+    height: 60,
+    backgroundColor: 'transparent',
   },
 });
 
