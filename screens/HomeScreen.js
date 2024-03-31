@@ -1,7 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { View, StyleSheet, ScrollView, Dimensions, Modal, TouchableWithoutFeedback, Text, Image } from 'react-native';
+import { View, StyleSheet, ScrollView, Dimensions, Modal, TouchableWithoutFeedback, Text, Image, TouchableOpacity } from 'react-native';
+import axios from 'axios';
 import BackgroundImage from '../components/Background';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import { useAuth } from '../hooks/AuthContext';
 import Cookie from '../assets/cookie.jpg';
 
 const HomeScreen = () => {
@@ -28,6 +31,77 @@ const HomeScreen = () => {
   const handleCloseLightbox = () => {
     setLightboxVisible(false);
   };
+
+  const [selectImage, setSelectImage] = useState('');
+  const { user } = useAuth();
+
+  //this allows user to upload image
+  const ImagePickerFunction = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
+      return;
+    }
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setSelectImage(result.uri);
+      console.log('res', result);
+      if (result.assets) {
+        uploadImage(result.assets[0]);
+      } else {
+        console.log('No assets to upload');
+      }
+    }
+  };
+
+  const uploadImage = async (selectImage) => {
+    console.log(selectImage);
+
+    const formData = new FormData();
+    formData.append('image', {
+      //endpoints that we send
+      uri: selectImage.uri,
+      type: selectImage.type,
+      name: selectImage.fileName,
+    });
+
+    console.log(formData);
+    try {
+      const uploadResponse = await axios.post(
+        // we are using axios to post data to backend
+        'http://backend-production-a339.up.railway.app/images/upload',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'x-access-token': user, // we use user as the token key
+          },
+        }
+      );
+
+      if (uploadResponse.status === 200) {
+        console.log('Image uploaded successfully!');
+        // Handle success
+      } else {
+        console.error('Image upload failed!');
+        // Handle error scenarios
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      // Handle network or other errors
+    }
+  };
+
+
 
   return (
     <BackgroundImage backgroundImage={require('../assets/pantry2.png')}>
@@ -74,6 +148,26 @@ const HomeScreen = () => {
           </View>
         </ScrollView>
       </View>
+      <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.uploadButton}
+
+            // gets rid of null value error
+            onPress={async () => {
+              try {
+                const result = await ImagePickerFunction(); // allows user to pick image
+                if (result === null) {
+                  console.log('No image was selected');
+                  return;
+                }
+              } catch (error) {
+                console.error(error);
+              }
+            }}
+          >
+            <Text style={styles.uploadText}>UPLOAD!</Text>
+          </TouchableOpacity>
+        </View>
       {/* Lightbox modal */}
       <Modal visible={lightboxVisible} transparent>
         <View style={styles.lightboxContainer}>
@@ -169,6 +263,22 @@ const styles = StyleSheet.create({
     width: 60,  // Same width as gridItem
     height: 60, // Same height as gridItem
     borderRadius: 10, // Same border radius as gridItem
+  },
+  uploadButton: {
+    position: 'absolute',
+    top: 175,
+    left: '10%',
+    width: '80%',
+    height: 55,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  uploadText: {
+    color: '#D1B7A1',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 
