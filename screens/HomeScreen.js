@@ -78,7 +78,7 @@ const HomeScreen = () => {
     try {
       const uploadResponse = await axios.post(
         // we are using axios to post data to backend
-        'http://backend-production-a339.up.railway.app/images/upload',
+        'http://backend-production-ba90.up.railway.app/images/upload',
         formData,
         {
           headers: {
