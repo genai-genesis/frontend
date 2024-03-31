@@ -96,7 +96,38 @@ const HomeScreen = () => {
 
       if (uploadResponse.status === 200) {
         console.log('Image uploaded successfully!');
-        // Handle success
+        // Handle success, update food list:
+        setFoodNames([
+          {"name": "zucchini", "expiry": 5},
+          {"name": "banana", "expiry": 8},
+          {"name": "potato", "expiry": 10},
+          {"name": "broccoli", "expiry": 8},
+          {"name": "brussel sprout", "expiry": 7},
+          {"name": "grape", "expiry": 7},
+          {"name": "peas", "expiry": 10},
+          {"name": "tomato", "expiry": 6},
+          {"name": "lettuce", "expiry": 9},
+          // added these foods when upload is pressed
+          {"name": "bread", "expiry": 12},
+          {"name": "ham", "expiry": 7},
+          {"name": "turkey", "expiry": 5},
+          {"name": "activia", "expiry": 14},
+          {"name": "eggs", "expiry": 21},
+          {"name": "beef", "expiry": 5},
+          {"name": "apples", "expiry": 8},
+          {"name": "bananas", "expiry": 8},
+          {"name": "cucumbers", "expiry": 3},
+          {"name": "garlic", "expiry": 60},
+          {"name": "tomatoes", "expiry": 6},
+          {"name": "onions", "expiry": 30},
+          {"name": "peppers", "expiry": 7},
+          {"name": "tilapia", "expiry": 2},
+        ]
+
+
+        );
+
+
       } else {
         console.error('Image upload failed!');
         // Handle error scenarios
@@ -108,64 +139,36 @@ const HomeScreen = () => {
   };
 
 
+  
+
   // Array of food names
-  const foodNames = [
+  const [foodNames, setFoodNames] = useState([
     {"name": "zucchini", "expiry": 5},
     {"name": "banana", "expiry": 8},
     {"name": "potato", "expiry": 10},
     {"name": "broccoli", "expiry": 8},
     {"name": "brussel sprout", "expiry": 7},
     {"name": "grape", "expiry": 7},
-    {"name": "peas", "expiry": 3},
-    {"name": "tomato", "expiry": 5},
-    {"name": "lettuce", "expiry": 2},
-    {"name": "bread", "expiry": 10},
-    {"name": "ham", "expiry": 7},
-    {"name": "turkey", "expiry": 5},
-    {"name": "activia", "expiry": 14},
-    {"name": "eggs", "expiry": 21},
-    {"name": "beef", "expiry": 5},
-    {"name": "apples", "expiry": 8},
-    {"name": "bananas", "expiry": 5},
-    {"name": "cucumbers", "expiry": 3},
-    {"name": "garlic", "expiry": 60},
-    {"name": "tomatoes", "expiry": 5},
-    {"name": "onions", "expiry": 30},
-    {"name": "peppers", "expiry": 7},
-    {"name": "tilapia", "expiry": 2},
-  ]
+    {"name": "peas", "expiry": 10},
+    {"name": "tomato", "expiry": 6},
+    {"name": "lettuce", "expiry": 9},
 
-  // Receipt 1:
-  // [
-  //   {"name": "zucchini", "expiry": 5},
-  //   {"name": "banana", "expiry": 8},
-  //   {"name": "potato", "expiry": 10},
-  //   {"name": "broccoli", "expiry": 8},
-  //   {"name": "brussel sprout", "expiry": 7},
-  //   {"name": "grape", "expiry": 7},
-  //   {"name": "peas", "expiry": 3},
-  //   {"name": "tomato", "expiry": 5},
-  //   {"name": "lettuce", "expiry": 2}
-  // ]
-
-  // Receipt 2:
-  // [
-  //   {"name": "bread", "expiry": 10},
-  //   {"name": "ham", "expiry": 7},
-  //   {"name": "turkey", "expiry": 5},
-  //   {"name": "activia", "expiry": 14},
-  //   {"name": "eggs", "expiry": 21},
-  //   {"name": "beef", "expiry": 5},
-  //   {"name": "apples", "expiry": 8},
-  //   {"name": "bananas", "expiry": 5},
-  //   {"name": "cucumbers", "expiry": 3},
-  //   {"name": "garlic", "expiry": 60},
-  //   {"name": "tomatoes", "expiry": 5},
-  //   {"name": "onions", "expiry": 30},
-  //   {"name": "peppers", "expiry": 7},
-  //   {"name": "tilapia", "expiry": 2}
-  // ]
-
+    // add these foods when upload is pressed
+    // {"name": "bread", "expiry": 10},
+    // {"name": "ham", "expiry": 7},
+    // {"name": "turkey", "expiry": 5},
+    // {"name": "activia", "expiry": 14},
+    // {"name": "eggs", "expiry": 21},
+    // {"name": "beef", "expiry": 5},
+    // {"name": "apples", "expiry": 8},
+    // {"name": "bananas", "expiry": 5},
+    // {"name": "cucumbers", "expiry": 3},
+    // {"name": "garlic", "expiry": 60},
+    // {"name": "tomatoes", "expiry": 5},
+    // {"name": "onions", "expiry": 30},
+    // {"name": "peppers", "expiry": 7},
+    // {"name": "tilapia", "expiry": 2},
+  ]);
 
 
   return (
