@@ -6,6 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from '../hooks/AuthContext';
 import Cookie from '../assets/cookie.jpg';
+import getFoodFileName from '../components/FoodMap'; // Import getFoodFileName function
+
 
 const HomeScreen = () => {
   const screenWidth = Dimensions.get('window').width; // Get the screen width
@@ -102,6 +104,13 @@ const HomeScreen = () => {
   };
 
 
+  // Array of food names
+  const foodNames = [
+    'zucchini', 'banana', 'potato', 'broccoli', 'brussel sprout', 'grape', 'peas', 'tomato',
+    'lettuce', 'bread', 'ham', 'turkey', 'activia', 'eggs', 'beef', 'apples', 'bananas',
+    'cucumbers', 'garlic', 'tomatoes', 'onions', 'peppers', 'tilapia'
+  ];
+
 
   return (
     <BackgroundImage backgroundImage={require('../assets/pantry2.png')}>
@@ -114,67 +123,77 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
           scrollEnabled={true}
         >
-          <View style={styles.outerLeftGrid}>
-            {/* Render first set of grid items */}
-            {[...Array(4).keys()].map((row) => (
-              <View key={row} style={styles.row}>
-                <View style={styles.innerGrid}>
-                  {[...Array(4).keys()].map((col) => (
-                    <TouchableWithoutFeedback key={col} onPress={handlePressGridItem}>
+         <View style={styles.outerLeftGrid}>
+          {/* Render first set of grid items */}
+          {[...Array(4).keys()].map((rowIndex) => (
+            <View key={rowIndex} style={styles.row}>
+              <View style={styles.innerGrid}>
+                {[...Array(4).keys()].map((colIndex) => {
+                  const index = rowIndex * 4 + colIndex;
+                  const foodName = foodNames[index];
+                  return (
+                    <TouchableWithoutFeedback key={index} onPress={handlePressGridItem}>
                       <View style={styles.gridItem}>
-                        <Image source={Cookie} style={styles.foodImage} />
+                        <Image source={getFoodFileName(foodName)} style={styles.foodImage} />
                       </View>
                     </TouchableWithoutFeedback>
-                  ))}
-                </View>
+                  );
+                })}
               </View>
-            ))}
-          </View>
+            </View>
+          ))}
+        </View>
           <View style={styles.outerRightGrid}>
-            {/* Render second set of grid items */}
-            {[...Array(4).keys()].map((row) => (
-              <View key={row} style={styles.row}>
-                <View style={styles.innerGrid}>
-                  {[...Array(4).keys()].map((col) => (
-                    <TouchableWithoutFeedback key={col + 4} onPress={handlePressGridItem}>
-                      <View style={styles.gridItem}>
-                        <Image source={Cookie} style={styles.foodImage} />
-                      </View>
-                    </TouchableWithoutFeedback>
-                  ))}
+  {/* Render second set of grid items */}
+  {[...Array(Math.ceil(foodNames.length / 4)).keys()].map((rowIndex) => (
+    <View key={rowIndex} style={styles.row}>
+      <View style={styles.innerGrid}>
+        {[...Array(4).keys()].map((colIndex) => {
+          const index = rowIndex * 4 + colIndex + 16;
+          if (index < foodNames.length) {
+            const foodName = foodNames[index];
+            return (
+              <TouchableWithoutFeedback key={index} onPress={handlePressGridItem}>
+                <View style={styles.gridItem}>
+                  <Image source={getFoodFileName(foodName)} style={styles.foodImage} />
                 </View>
-              </View>
-            ))}
-          </View>
+              </TouchableWithoutFeedback>
+            );
+          } else {
+            return null; // Return null for indices beyond the array length
+          }
+        })}
+      </View>
+    </View>
+  ))}
+</View>
         </ScrollView>
       </View>
       <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.uploadButton}
-
-            // gets rid of null value error
-            onPress={async () => {
-              try {
-                const result = await ImagePickerFunction(); // allows user to pick image
-                if (result === null) {
-                  console.log('No image was selected');
-                  return;
-                }
-              } catch (error) {
-                console.error(error);
+        <TouchableOpacity
+          style={styles.uploadButton}
+          onPress={async () => {
+            try {
+              const result = await ImagePickerFunction();
+              if (result === null) {
+                console.log('No image was selected');
+                return;
               }
-            }}
-          >
-            <Text style={styles.uploadText}>UPLOAD!</Text>
-          </TouchableOpacity>
-        </View>
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+        >
+          <Text style={styles.uploadText}>UPLOAD!</Text>
+        </TouchableOpacity>
+      </View>
       {/* Lightbox modal */}
       <Modal visible={lightboxVisible} transparent>
         <View style={styles.lightboxContainer}>
           <View style={styles.lightboxContent}>
             <Text style={styles.lightboxName}>Cookie</Text>
             <Text style={styles.lightboxExpiry}>Expiry Estimate: 5 days</Text>
-            <Image source={Cookie} style={styles.lightboxImage} />
+            <Image source={getFoodFileName('tomato')} style={styles.lightboxImage} />
             <TouchableWithoutFeedback onPress={handleCloseLightbox}>
               <View style={styles.closeButtonContainer}>
                 <Ionicons name="close-circle-outline" size={30} color="black" />
@@ -192,8 +211,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    alignItems: 'center', // Center horizontally
-    paddingBottom: '63%', // Adjust bottom position as needed
+    alignItems: 'center',
+    paddingBottom: '63%',
   },
   outerLeftGrid: {
     flexDirection: 'column',
@@ -214,12 +233,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#D1B7A1',
     marginHorizontal: 13,
     height: 60,
-    width: 60, // Set width as percentage (4 items in a row with 2% margin)
+    width: 60,
     marginTop: 72.5,
     borderRadius: 10,
-    shadowOffset: { width: 2, height: 2 }, // Shadow offset (diagonal)
-    shadowOpacity: 0.5, // Shadow opacity
-    shadowRadius: 2, // Shadow blur radius
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
   },
   lightboxContainer: {
     flex: 1,
@@ -231,7 +250,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
-    alignItems: 'center', // Center the content horizontally
+    alignItems: 'center',
   },
   lightboxName: {
     fontSize: 24,
@@ -240,13 +259,6 @@ const styles = StyleSheet.create({
   lightboxExpiry: {
     marginTop: 10,
     fontSize: 18,
-  },
-  closeButton: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    fontSize: 20,
-    color: 'black',
   },
   closeButtonContainer: {
     position: 'absolute',
@@ -260,9 +272,9 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   foodImage: {
-    width: 60,  // Same width as gridItem
-    height: 60, // Same height as gridItem
-    borderRadius: 10, // Same border radius as gridItem
+    width: 60,
+    height: 60,
+    borderRadius: 10,
   },
   uploadButton: {
     position: 'absolute',
