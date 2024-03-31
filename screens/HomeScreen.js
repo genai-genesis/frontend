@@ -13,6 +13,9 @@ const HomeScreen = () => {
   const screenWidth = Dimensions.get('window').width; // Get the screen width
   const scrollViewRef = useRef(null); // Ref for ScrollView
   const [lightboxVisible, setLightboxVisible] = useState(false); // State for lightbox visibility
+  const [selectedFood, setSelectedFood] = useState('tomato');
+
+
 
   // Function to handle swiping to the next page
   const handleSwipeRight = () => {
@@ -25,7 +28,8 @@ const HomeScreen = () => {
   };
 
   // Function to handle pressing a grid item
-  const handlePressGridItem = () => {
+  const handlePressGridItem = (foodName) => {
+    setSelectedFood(foodName);
     setLightboxVisible(true);
   };
 
@@ -132,7 +136,7 @@ const HomeScreen = () => {
                   const index = rowIndex * 4 + colIndex;
                   const foodName = foodNames[index];
                   return (
-                    <TouchableWithoutFeedback key={index} onPress={handlePressGridItem}>
+                    <TouchableWithoutFeedback key={index} onPress={() => handlePressGridItem(foodName)}>
                       <View style={styles.gridItem}>
                         <Image source={getFoodFileName(foodName)} style={styles.foodImage} />
                       </View>
@@ -153,7 +157,7 @@ const HomeScreen = () => {
           if (index < foodNames.length) {
             const foodName = foodNames[index];
             return (
-              <TouchableWithoutFeedback key={index} onPress={handlePressGridItem}>
+              <TouchableWithoutFeedback key={index} onPress={() => handlePressGridItem(foodName)}>
                 <View style={styles.gridItem}>
                   <Image source={getFoodFileName(foodName)} style={styles.foodImage} />
                 </View>
@@ -193,7 +197,7 @@ const HomeScreen = () => {
           <View style={styles.lightboxContent}>
             <Text style={styles.lightboxName}>Cookie</Text>
             <Text style={styles.lightboxExpiry}>Expiry Estimate: 5 days</Text>
-            <Image source={getFoodFileName('tomato')} style={styles.lightboxImage} />
+            <Image source={getFoodFileName(selectedFood)} style={styles.lightboxImage} />
             <TouchableWithoutFeedback onPress={handleCloseLightbox}>
               <View style={styles.closeButtonContainer}>
                 <Ionicons name="close-circle-outline" size={30} color="black" />
