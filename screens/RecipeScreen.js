@@ -3,12 +3,34 @@ import { View, Text, ScrollView, StyleSheet, ImageBackground } from 'react-nativ
 import BackgroundImage from '../components/Background'; // Import the BackgroundImage component
 import Udon from '../assets/kale_feta_udon.png';
 
+// Array of food names
 const foodNames = [
-  'zucchini', 'banana', 'potato', 'broccoli', 'brussel sprout', 'grape', 'peas', 'tomato', 'lettuce',
-  'bread', 'ham', 'turkey', 'activia', 'eggs', 'beef', 'apples', 'bananas', 'cucumbers', 'garlic',
-  'tomatoes', 'onions', 'peppers', 'tilapia'
-];
+  {"name": "zucchini", "expiry": 5},
+  {"name": "banana", "expiry": 8},
+  {"name": "potato", "expiry": 10},
+  {"name": "broccoli", "expiry": 8},
+  {"name": "brussel sprout", "expiry": 7},
+  {"name": "grape", "expiry": 7},
+  {"name": "peas", "expiry": 3},
+  {"name": "tomato", "expiry": 5},
+  {"name": "lettuce", "expiry": 2},
+  {"name": "bread", "expiry": 10},
+  {"name": "ham", "expiry": 7},
+  {"name": "turkey", "expiry": 5},
+  {"name": "activia", "expiry": 14},
+  {"name": "eggs", "expiry": 21},
+  {"name": "beef", "expiry": 5},
+  {"name": "apples", "expiry": 8},
+  {"name": "bananas", "expiry": 5},
+  {"name": "cucumbers", "expiry": 3},
+  {"name": "garlic", "expiry": 60},
+  {"name": "tomatoes", "expiry": 5},
+  {"name": "onions", "expiry": 30},
+  {"name": "peppers", "expiry": 7},
+  {"name": "tilapia", "expiry": 2}
+]
 
+// Replace this with Gemeni generated answer (from API call)
 const generatedRecipeText = `1. Spicy Udon Noodle Soup with Kale and Feta
 This recipe is a light and flavorful soup perfect for a cold day. The jalapenos add a kick, balanced by the creamy feta and citrusy lemon. Xanthan gum thickens the broth slightly for a more satisfying meal.
 
