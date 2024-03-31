@@ -123,8 +123,6 @@ const HomeScreen = () => {
           {"name": "peppers", "expiry": 7},
           {"name": "tilapia", "expiry": 2},
         ]
-
-
         );
 
 
