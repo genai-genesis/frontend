@@ -55,7 +55,7 @@ const LoginScreen = ({ navigation }) => {
 
         if (response.status === 200) {
           signIn(response.data.user);
-          navigation.navigate('Fridge');
+          navigation .navigate('Fridge');
         }
 
         console.log(response.data);
