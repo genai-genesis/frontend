@@ -27,7 +27,7 @@ const LoginScreen = ({ navigation }) => {
 
         if (response.status === 200) {
           signIn(response.data.user);
-          navigation.navigate('Fridge');
+          navigation.navigate('TabNavigator', { screen: 'Fridge' }); // Navigate to 'Fridge' screen within 'TabNavigator'
         }
       } catch (error) {
         console.error(error);
@@ -55,7 +55,8 @@ const LoginScreen = ({ navigation }) => {
 
         if (response.status === 200) {
           signIn(response.data.user);
-          navigation.navigate('Fridge');
+          navigation.navigate('TabNavigator', { screen: 'Fridge' }); // Navigate to 'Fridge' screen within 'TabNavigator'
+
         }
 
         console.log(response.data);
