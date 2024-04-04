@@ -1,3 +1,7 @@
+
+![Uploading Pocket Fridge Post (2).png…]()
+![Uploading PocketFridge Architecture (1).png…]()
+
 # Inspiration 🌱
 Reflecting on our own lives as university students, we realized how busy life can be, balancing sleep, academics, our social lives, and more. There’s barely any time to think of nutritious or healthy recipes, and sometimes we even forget about the food in the back of our fridges.
 
