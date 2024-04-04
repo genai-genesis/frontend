@@ -1,6 +1,6 @@
 
-![Uploading Pocket Fridge Post (2).png…]()
-![Uploading PocketFridge Architecture (1).png…]()
+![Pocket Fridge Post (2)](https://github.com/genai-genesis/frontend/assets/152770271/c6068ae6-a8cb-4854-8229-98dca76fd763)
+![PocketFridge Architecture (1)](https://github.com/genai-genesis/frontend/assets/152770271/bc3d8341-1c3e-4e29-b2d1-6e1cdd224dc9)
 
 # Inspiration 🌱
 Reflecting on our own lives as university students, we realized how busy life can be, balancing sleep, academics, our social lives, and more. There’s barely any time to think of nutritious or healthy recipes, and sometimes we even forget about the food in the back of our fridges.
